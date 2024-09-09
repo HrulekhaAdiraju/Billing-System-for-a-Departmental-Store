@@ -1,0 +1,18 @@
+#include <mysql/mysql.h>
+#include <stdio.h>
+
+MYSQL *conn;
+
+void connect_to_database() {
+    conn = mysql_init(NULL);
+    if (conn == NULL) {
+        fprintf(stderr, "mysql_init() failed\n");
+        return;
+    }
+
+    if (mysql_real_connect(conn, "localhost", "root", "password", "department_store", 0, NULL, 0) == NULL) {
+        fprintf(stderr, "mysql_real_connect() failed\n");
+        mysql_close(conn);
+        return;
+    }
+}
